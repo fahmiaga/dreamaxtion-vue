@@ -1,0 +1,26 @@
+[
+    {
+        "id":1,
+        "product": "Sony a7RII",
+        "stock" : 8,
+        "sold" : 20
+    },
+    {
+        "id":2,
+        "product": "DJI Ronin S",
+        "stock" : 90,
+        "sold" : 10
+    },
+    {
+        "id":3,
+        "product": "Iphone 12",
+        "stock" : 35,
+        "sold" : 45
+    },
+    {
+        "id":4,
+        "product": "Adidas 12",
+        "stock" : 39,
+        "sold" : 43
+    }
+]

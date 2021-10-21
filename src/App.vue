@@ -1,26 +1,59 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <h2 class="title">Products</h2>
+    <div class="container-wrapper">
+      <div v-for="(product, i) in data" :key="i">
+        <Card :data="product" :highest="highest" />
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import products from "@/json/data.json";
+import Card from "@/components/Card.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Card,
+  },
+  data() {
+    return {
+      data: [],
+      highest: products.reduce(
+        (acc, shot) => (acc = acc > shot.sold ? acc : shot.sold),
+        0
+      ),
+    };
+  },
+  created() {
+    this.data = products;
+  },
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f1f6f9;
+  font-family: "Poppins", sans-serif;
+}
+.container {
+  width: 50%;
+  margin: auto;
+}
+.container-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 600px) {
+  .container-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>
