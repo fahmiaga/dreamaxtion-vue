@@ -2,15 +2,15 @@
   <div class="container">
     <h2 class="title">Products</h2>
     <div class="container-wrapper">
-      <div v-for="(product, i) in data" :key="i">
-        <Card :data="product" :highest="highest" />
+      <div v-for="(product, i) in data.products" :key="i">
+        <Card :data="product" :sales="sales" :highest="highest" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import products from "@/json/data.json";
+import products from "@/json/products.json";
 import Card from "@/components/Card.vue";
 export default {
   name: "App",
@@ -20,16 +20,31 @@ export default {
   data() {
     return {
       data: [],
-      highest: products.reduce(
-        (acc, shot) => (acc = acc > shot.sold ? acc : shot.sold),
-        0
-      ),
+      sales: [],
+      highest: newQty.reduce((acc, shot) => (acc = acc > shot ? acc : shot), 0),
     };
   },
   created() {
     this.data = products;
+    this.sales = products.sales;
+    // this.highest = products.products.map((pro, i) => {
+    //   // console.log(
+    //   products.sales
+    //     .filter((sale) => sale.product_id === pro.id)
+    //     .reduce((acc, curr) => acc + curr.qty, 0);
+    //   // );
+    // });
   },
 };
+const newQty = [];
+products.products.map((pro, i) => {
+  newQty.push(
+    products.sales
+      .filter((sale) => sale.product_id === pro.id)
+      .reduce((acc, curr) => acc + curr.qty, 0)
+  );
+});
+console.log(newQty);
 </script>
 
 <style>

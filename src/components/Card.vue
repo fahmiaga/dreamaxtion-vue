@@ -2,13 +2,36 @@
   <div class="card">
     <div class="card-wrapper">
       <div :class="data.stock < 10 ? 'item-stock danger-bg' : 'item-stock'">
-        <h2 :class="data.stock < 10 ? 'danger' : ''">{{ data.stock }}</h2>
+        <h2 :class="data.stock < 10 ? 'danger' : ''">
+          {{ data.stock }}
+        </h2>
       </div>
       <div class="description">
-        <h4>{{ data.product }}</h4>
+        <h4>{{ data.name }}</h4>
         <div class="total-sold">
           <p>Total Sold</p>
-          <p :class="data.sold === highest ? 'success' : ''">{{ data.sold }}</p>
+          <!-- <p>
+            {{
+              sales
+                .filter((sale) => sale.product_id === data.id)
+                .reduce((acc, curr) => acc + curr.qty, 0)
+            }}
+          </p> -->
+          <p
+            :class="
+              sales
+                .filter((sale) => sale.product_id === data.id)
+                .reduce((acc, curr) => acc + curr.qty, 0) === highest
+                ? 'success'
+                : ''
+            "
+          >
+            {{
+              sales
+                .filter((sale) => sale.product_id === data.id)
+                .reduce((acc, curr) => acc + curr.qty, 0)
+            }}
+          </p>
         </div>
       </div>
     </div>
@@ -17,7 +40,10 @@
 
 <script>
 export default {
-  props: ["data", "highest"],
+  props: ["data", "sales", "highest"],
+  created() {
+    // this.products = this.data.products;
+  },
 };
 </script>
 
